@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Friendly, reliable dog walks from a local team of caring walkers.">
+	<title>DogWalk — Happy walks, happy dogs</title>
+	<style>
+		:root {
+			--green: #245c3b;
+			--green-dark: #193f2a;
+			--lime: #d7ed75;
+			--cream: #faf8ef;
+			--ink: #26342b;
+			--muted: #68756c;
+			--white: #fff;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; color: var(--ink); background: var(--cream); font-family: "Trebuchet MS", Arial, sans-serif; line-height: 1.6; }
+		a { color: inherit; }
+		.wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+		header { position: sticky; top: 0; z-index: 5; background: rgba(250,248,239,.95); border-bottom: 1px solid #e8e8d9; backdrop-filter: blur(10px); }
+		nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+		.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.35rem; font-weight: 900; letter-spacing: -.04em; color: var(--green-dark); }
+		.brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 14px; background: var(--lime); font-size: 1.3rem; }
+		.nav-links { display: flex; align-items: center; gap: 28px; }
+		.nav-links a { text-decoration: none; font-size: .94rem; font-weight: 700; }
+		.nav-links a:hover { color: var(--green); }
+		.button { display: inline-flex; align-items: center; justify-content: center; padding: 13px 20px; border: 0; border-radius: 999px; background: var(--green); color: var(--white); font: inherit; font-weight: 800; text-decoration: none; transition: transform .2s, background .2s; }
+		.button:hover { background: var(--green-dark); transform: translateY(-2px); }
+		.button.yellow { background: var(--lime); color: var(--green-dark); }
+		.button.yellow:hover { background: #c9e45a; }
+		.hero { padding: 72px 0 84px; overflow: hidden; }
+		.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 54px; }
+		.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-size: .83rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+		.eyebrow:before { content: ""; width: 22px; height: 3px; border-radius: 3px; background: #a7c849; }
+		h1 { margin: 16px 0; max-width: 650px; color: var(--green-dark); font-size: clamp(3rem, 6vw, 5.3rem); line-height: .99; letter-spacing: -.065em; }
+		h1 span { color: #76983e; }
+		.hero-copy { max-width: 510px; color: var(--muted); font-size: 1.12rem; }
+		.hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 27px; }
+		.small-note { color: var(--muted); font-size: .88rem; font-weight: 700; }
+		.hero-art { min-height: 430px; position: relative; display: grid; place-items: center; }
+		.sun { position: absolute; width: 340px; height: 340px; border-radius: 50%; background: #e7efb9; right: 3%; top: 7%; }
+		.art-card { position: relative; display: grid; place-items: center; width: min(100%, 430px); height: 370px; border-radius: 48% 52% 43% 57% / 49% 44% 56% 51%; background: #c9df9f; overflow: hidden; }
+		.dog-emoji { font-size: clamp(10rem, 23vw, 17rem); filter: drop-shadow(0 18px 10px rgba(43,72,37,.12)); transform: rotate(-7deg); }
+		.floating { position: absolute; z-index: 1; padding: 12px 16px; border-radius: 18px; background: var(--white); box-shadow: 0 12px 30px #25482b1c; font-weight: 800; }
+		.float-one { top: 34px; left: 0; transform: rotate(-4deg); }
+		.float-two { right: 0; bottom: 42px; transform: rotate(4deg); }
+		.section { padding: 78px 0; }
+		.section-heading { max-width: 650px; margin-bottom: 36px; }
+		h2 { margin: 10px 0; color: var(--green-dark); font-size: clamp(2.1rem, 4vw, 3.2rem); line-height: 1.08; letter-spacing: -.045em; }
+		.section-heading p { color: var(--muted); }
+		.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+		.feature { min-height: 210px; padding: 26px; border: 1px solid #e8e8d9; border-radius: 24px; background: var(--white); }
+		.feature-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 16px; background: #eff5d8; font-size: 1.4rem; }
+		.feature h3 { margin: 17px 0 6px; color: var(--green-dark); }
+		.feature p { margin: 0; color: var(--muted); font-size: .95rem; }
+		.team-section { background: #edf2dc; }
+		.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+		.walker { padding: 23px; border-radius: 22px; background: var(--white); text-align: center; }
+		.walker-avatar { display: grid; place-items: center; width: 74px; height: 74px; margin: auto; border: 5px solid #e4efc6; border-radius: 50%; background: #f7e9c2; font-size: 2rem; }
+		.walker h3 { margin: 12px 0 2px; color: var(--green-dark); }
+		.walker p { margin: 0; color: var(--muted); font-size: .9rem; }
+		.team-note { margin: 20px 0 0; color: var(--muted); text-align: center; font-size: .9rem; }
+		.schedule { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+		.days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+		.day { padding: 15px 8px; border-radius: 16px; background: #edf2dc; color: var(--green-dark); text-align: center; font-weight: 800; }
+		.day:last-child { background: var(--lime); }
+		.contact-section { padding: 75px 0; background: var(--green); color: var(--white); }
+		.contact-box { display: flex; align-items: center; justify-content: space-between; gap: 36px; padding: 38px; border-radius: 28px; background: var(--green-dark); }
+		.contact-box h2 { max-width: 620px; margin-top: 0; color: var(--white); }
+		.contact-box p { max-width: 580px; margin-bottom: 0; color: #d4e0d4; }
+		.contact-box .button { flex-shrink: 0; }
+		footer { padding: 24px 0; color: var(--muted); font-size: .9rem; }
+		.footer-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+		@media (max-width: 760px) {
+			.nav-links { gap: 14px; }
+			.nav-links a:not(.button) { display: none; }
+			.hero { padding: 48px 0 60px; }
+			.hero-grid, .schedule { grid-template-columns: 1fr; gap: 24px; }
+			.hero-art { min-height: 330px; }
+			.art-card { height: 300px; }
+			.sun { width: 260px; height: 260px; }
+			.features { grid-template-columns: 1fr; }
+			.team-grid { grid-template-columns: repeat(2, 1fr); }
+			.contact-box { align-items: flex-start; flex-direction: column; padding: 28px; }
+		}
+		@media (max-width: 430px) {
+			.wrap { width: min(100% - 28px, 1120px); }
+			nav { min-height: 68px; }
+			.brand { font-size: 1.15rem; }
+			.nav-links .button { padding: 10px 14px; font-size: .88rem; }
+			.team-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+			.walker { padding: 17px 10px; }
+			.days { gap: 7px; }
+			.day { padding: 12px 4px; font-size: .88rem; }
+			.footer-row { align-items: flex-start; flex-direction: column; }
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="wrap" aria-label="Main navigation">
+			<a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">🐾</span> DogWalk</a>
+			<div class="nav-links">
+				<a href="#about">Why us</a>
+				<a href="#team">Our team</a>
+				<a class="button" href="#contact">Book a walk</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero" id="home">
+			<div class="wrap hero-grid">
+				<div>
+					<span class="eyebrow">A little more tail-wagging</span>
+					<h1>Good walks.<br><span>Great days.</span></h1>
+					<p class="hero-copy">Friendly, dependable dog walking from a small team that treats every pup like one of our own. You handle the cuddles—we’ll handle the steps.</p>
+					<div class="hero-actions">
+						<a class="button" href="#contact">Order a walk <span aria-hidden="true">&nbsp;→</span></a>
+						<span class="small-note">Monday–Saturday · Happy paws guaranteed</span>
+					</div>
+				</div>
+				<div class="hero-art" aria-label="Illustration of a happy dog">
+					<div class="sun"></div>
+					<div class="floating float-one">🌿 Fresh air, every day</div>
+					<div class="art-card"><span class="dog-emoji" aria-hidden="true">🐕</span></div>
+					<div class="floating float-two">★★★★★ &nbsp; Very good walks</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="about">
+			<div class="wrap">
+				<div class="section-heading">
+					<span class="eyebrow">Walks with care</span>
+					<h2>More than a quick trip around the block.</h2>
+					<p>Every dog has their own pace and personality. We make time for both, with thoughtful walks and a team you can count on.</p>
+				</div>
+				<div class="features">
+					<article class="feature"><span class="feature-icon" aria-hidden="true">🐶</span><h3>Personal attention</h3><p>We get to know your dog’s routine, favorite sniff spots, and comfort level.</p></article>
+					<article class="feature"><span class="feature-icon" aria-hidden="true">🦮</span><h3>People you can trust</h3><p>Our friendly team shows up on time and keeps your dog’s wellbeing first.</p></article>
+					<article class="feature"><span class="feature-icon" aria-hidden="true">🌼</span><h3>Good-day updates</h3><p>Enjoy peace of mind while your pup gets exercise, attention, and fresh air.</p></article>
+				</div>
+			</div>
+		</section>
+
+		<section class="section team-section" id="team">
+			<div class="wrap">
+				<div class="section-heading">
+					<span class="eyebrow">The friendly faces</span>
+					<h2>Six walkers. One happy pack.</h2>
+					<p>Our close-knit team is here to make every walk feel safe, familiar, and fun.</p>
+				</div>
+				<div class="team-grid" aria-label="Our six dog walkers">
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏻</div><h3>Walker 01</h3><p>Dog walker</p></article>
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏼</div><h3>Walker 02</h3><p>Dog walker</p></article>
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏽</div><h3>Walker 03</h3><p>Dog walker</p></article>
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏾</div><h3>Walker 04</h3><p>Dog walker</p></article>
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏼</div><h3>Walker 05</h3><p>Dog walker</p></article>
+					<article class="walker"><div class="walker-avatar" aria-hidden="true">👩🏻</div><h3>Walker 06</h3><p>Dog walker</p></article>
+				</div>
+				<p class="team-note">Our walkers’ names and photos can be added here when you’re ready.</p>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="wrap schedule">
+				<div class="section-heading">
+					<span class="eyebrow">A routine that works</span>
+					<h2>Ready when your dog is.</h2>
+					<p>We’re available six days a week. Contact our manager to find a time that suits you and your pup.</p>
+				</div>
+				<div class="days" aria-label="Working days: Monday through Saturday">
+					<div class="day">Monday</div><div class="day">Tuesday</div><div class="day">Wednesday</div>
+					<div class="day">Thursday</div><div class="day">Friday</div><div class="day">Saturday</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="wrap contact-box">
+				<div>
+					<span class="eyebrow" style="color: var(--lime)">Let’s get tails moving</span>
+					<h2>Need to order a walk?</h2>
+					<p>Get in touch with our manager to arrange your dog’s walk, ask a question, or check availability.</p>
+				</div>
+				<a class="button yellow" href="mailto:hello@dogwalk.example?subject=DogWalk%20booking">Contact the manager&nbsp; →</a>
+			</div>
+		</section>
+	</main>
+
+	<footer>
+		<div class="wrap footer-row"><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">🐾</span> DogWalk</a><span>Happy walks, happy dogs. &copy; 2025 DogWalk</span></div>
+	</footer>
+</body>
+</html>
